@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const express = require('express');
+const path = require('path');
 
+// Data models
 const users = require('./routes/api/users');
 const patients = require('./routes/api/patients');
 
@@ -12,6 +14,9 @@ const app = express();
 //body parser middleware
 app.use(bodyParser.urlencoded({ extended : false }));
 app.use(bodyParser.json());
+
+//For production purposes
+app.use(express.static(path.join(__dirname,'frontend/build')))
 
 // Mongo DB config
 const db = require('./config/keys').mongoURI;
