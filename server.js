@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 //For production purposes
 app.use(express.static(path.join(__dirname,'frontend/build')))
 
+
 // Mongo DB config
 const db = require('./config/keys').mongoURI;
 mongoose.connect(db, { useNewUrlParser: true})
@@ -33,6 +34,11 @@ require('./config/passport')(passport);
 //route apis
 app.use('/api/users',users);
 app.use('/doctor',patients);
+
+app.get('*', (req, res)=>{
+    res.sendFile(path.join(__dirname, '../build/index.html'));
+  })
+
 
 const port = process.env.PORT || 5000;
 
